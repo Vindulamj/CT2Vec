@@ -15,37 +15,52 @@ public class CorpusTrainer {
     static BufferedWriter bw = null;
     static FileWriter fw = null;
     static String text = null;
-    private static final String FILENAME = "/home/vindula/Desktop/results.txt";
+    private static final String FILENAME = "C:\\Users\\User\\Desktop\\results.txt";
 
 
     public static void main(String[] args) throws Exception {
 
-        fw = new FileWriter("/home/vindula/Desktop/xx.txt");
+        fw = new FileWriter("C:\\Users\\User\\Desktop\\newCorpus.txt");
         bw = new BufferedWriter(fw);
         BufferedReader br = null;
         FileReader fr = null;
 
         try {
+
             fr = new FileReader(FILENAME);
             br = new BufferedReader(fr);
+
             String sCurrentLine;
+
             br = new BufferedReader(new FileReader(FILENAME));
+
             while ((sCurrentLine = br.readLine()) != null) {
                 LemmatizeAndWriteToFile(sCurrentLine);
             }
 
         } catch (IOException e) {
+
             e.printStackTrace();
+
         } finally {
+
             try {
+
                 if (br != null)
                     br.close();
+
                 if (fr != null)
                     fr.close();
+
             } catch (IOException ex) {
+
                 ex.printStackTrace();
+
             }
+
         }
+
+
         if (bw != null)
             bw.close();
 
@@ -73,7 +88,7 @@ public class CorpusTrainer {
             // a CoreLabel is a CoreMap with additional token-specific methods
             for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
                 // this is the lemmatized version of the token
-                String word = token.lemma();
+                String word = token.word();
                 if(String.valueOf(word).chars().allMatch(Character::isLetter)) {
                     bw.write(String.valueOf(word) + " ");
                 }
